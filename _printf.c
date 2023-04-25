@@ -7,8 +7,7 @@
 int _printf(const char *format, ...)
 {
 	va_list vl;
-	int i = 0, j = 0;
-	int length = 0;
+	int i = 0, j = 0, k = 0;
 	char buffer[BUFFER_SIZE];
 	char *str;
 
@@ -24,16 +23,19 @@ int _printf(const char *format, ...)
 			{
 				case 'c':
 					{
-						buffer[j] = va_arg(vl, int);
-						j++;
-						break;
+					buffer[j] = va_arg(vl, int);
+					j++;
+					break;
 					}
 				case 's':
 					{
-						str = va_arg(vl, char*);
-						while (str[length] != '\0')
-							length++;
-						write(1, str, length);
+					str = va_arg(vl, char*);
+					for (k = 0; str[k] != '\0'; k++)
+					{
+						buffer[j] = str[k];
+						j++;
+					}
+					break;
 					}
 			}
 		}
