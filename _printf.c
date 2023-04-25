@@ -37,6 +37,12 @@ int _printf(const char *format, ...)
 					}
 					break;
 					}
+				case '%':
+					{
+					buffer[j] = '%';
+					j++;
+					break;
+					}
 			}
 		}
 		else
