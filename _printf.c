@@ -1,4 +1,6 @@
 #include "main.h"
+
+int get_specifier(va_list list, char src, char *dest, int index);
 /**
   * _printf - print function
   * @format: format specifiers
@@ -7,10 +9,12 @@
 int _printf(const char *format, ...)
 {
 	va_list vl;
-	int i = 0, j = 0, k = 0;
-	char buffer[BUFFER_SIZE];
-	char *str;
+	int i = 0, j = 0;
+	char *buffer;
 
+	buffer = malloc(sizeof(char) * BUFFER_SIZE);
+	if (buffer == NULL)
+		return (-1);
 	if (format == NULL)
 		return (-1);
 	va_start(vl, format);
@@ -19,31 +23,7 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			switch (format[i])
-			{
-				case 'c':
-					{
-					buffer[j] = va_arg(vl, int);
-					j++;
-					break;
-					}
-				case 's':
-					{
-					str = va_arg(vl, char*);
-					for (k = 0; str[k] != '\0'; k++)
-					{
-						buffer[j] = str[k];
-						j++;
-					}
-					break;
-					}
-				case '%':
-					{
-					buffer[j] = '%';
-					j++;
-					break;
-					}
-			}
+			j = get_specifier(vl, format[i], &buffer[j], j) + j;
 		}
 		else
 		{
@@ -53,6 +33,47 @@ int _printf(const char *format, ...)
 		i++;
 	}
 	write(1, buffer, j);
+	free(buffer);
 	va_end(vl);
-	return (j - 1);
+	return (j);
+}
+/**
+  * get_specifier - function to fill buffer according to the specifier
+  * @list: list
+  * @src: specifier from source input
+  * @dest: buffer
+  * @index: index of the buffer
+  * Return: final index of buffer
+  */
+int get_specifier(va_list list, char src, char *dest, int index)
+{
+	int i;
+	char *str;
+
+	switch (src)
+	{
+		case 'c':
+			{
+				dest[index] = va_arg(list, int);
+				index++;
+				break;
+			}
+		case 's':
+			{
+				str = va_arg(list, char*);
+				for (i = 0; str[i]; i++)
+				{
+					dest[index] = str[i];
+					index++;
+				}
+				break;
+			}
+		case '%':
+			{
+				dest[index] = '%';
+				index++;
+				break;
+			}
+	}
+	return (index);
 }
