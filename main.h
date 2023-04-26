@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include <stdlib.h>
 #define BUFFER_SIZE 1024
 int _printf(const char *format, ...);
 int get_specifier(va_list list, char src, char *dest, int index);
