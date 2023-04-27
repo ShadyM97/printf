@@ -22,7 +22,7 @@ int print_string(va_list list)
 	if (str == NULL)
 		str = "(null)";
 
-	while (str[i] != '\0')
+	while (str[i])
 		i = i +_putchar(str[i]);
 	return (i);
 }
