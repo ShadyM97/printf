@@ -19,7 +19,13 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			printed_char += print_specifier(vl, format[i]);
+			if (format[i] != '\0')
+				printed_char += print_specifier(vl, format[i]);
+			else
+			{	
+				_putchar('\n');
+				return (printed_char);
+			}
 		}
 		else
 		{
@@ -57,6 +63,8 @@ int print_specifier(va_list list, char specifier)
 			break;
 		case 'i':
 			printed_char = print_int(list);
+			break;
+		default:
 			break;
 	}
 	return (printed_char);
