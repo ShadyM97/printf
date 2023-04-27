@@ -39,32 +39,25 @@ int _printf(const char *format, ...)
   */
 int print_specifier(va_list list, char specifier)
 {
-	int printed_char = 0, i = 0;
-	char *str;
+	int printed_char = 0;
 
 	switch (specifier)
 	{
 		case 'c':
-			{
-				_putchar(va_arg(list, int));
-				printed_char++;
-				break;
-			}
+			printed_char = print_char(list);
+			break;
 		case '%':
-			{
-				_putchar('%');
-				printed_char++;
-				break;
-			}
+			printed_char = _putchar('%');
+			break;
 		case 's':
-			{
-				str = va_arg(list, char*);
-				for (i = 0; str[i]; i++)
-				{
-					_putchar(str[i]);
-					printed_char++;
-				}
-			}
+			printed_char = print_string(list);
+			break;
+		case 'd':
+			printed_char = print_int(list);
+			break;
+		case 'i':
+			printed_char = print_int(list);
+			break;
 	}
 	return (printed_char);
 }
