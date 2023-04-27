@@ -34,7 +34,7 @@ int print_string(va_list list)
 int print_int(va_list list)
 {
 	int x, expo = 1, len = 0;
-	int n;
+	unsigned int n;
 
 	x = va_arg(list, int);
 	if (x < 0)
