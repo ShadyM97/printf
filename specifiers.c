@@ -22,8 +22,8 @@ int print_string(va_list list)
 	if (str == NULL)
 		str = "(null)";
 
-	while (str[i])
-		i = i +_putchar(str[i]);
+	for (i = 0; str[i]; i++)
+		_putchar(str[i]);
 	return (i);
 }
 /**
