@@ -65,6 +65,7 @@ int print_specifier(va_list list, char specifier)
 			printed_char = print_int(list);
 			break;
 		default:
+			printed_char = print_other(specifier);
 			break;
 	}
 	return (printed_char);

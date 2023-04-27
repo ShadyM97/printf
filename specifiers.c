@@ -54,3 +54,16 @@ int print_int(va_list list)
 	}
 	return (len);
 }
+/**
+  * print_other - function the prints other characters
+  * @c: character
+  * Return: number of printed characters
+  */
+int print_other(char c)
+{
+	int i = 0;
+
+	i = _putchar('%');
+	i += _putchar(c);
+	return (i);
+}
