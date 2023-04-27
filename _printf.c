@@ -23,7 +23,7 @@ int _printf(const char *format, ...)
 				printed_char += print_specifier(vl, format[i]);
 			else
 			{
-				return (printed_char);
+				return (-1);
 			}
 		}
 		else
