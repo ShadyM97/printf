@@ -8,9 +8,8 @@
 int _printf(const char *format, ...)
 {
 	va_list vl;
-	int i = 0, j = 0, k = 0;
-	char buffer[BUFFER_SIZE];
-	char *str;
+	int i = 0;
+	int printed_char = 0;
 
 	if (format == NULL)
 		return (-1);
@@ -20,34 +19,52 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			if (format[i] == 'c')
-			{
-				buffer[j] = va_arg(vl, int);
-				j++;
-			}
-			else if (format[i] == '%')
-			{
-				buffer[j] = '%';
-				j++;
-			}
-			else
-			{
-				str = va_arg(vl, char*);
-				for (k = 0; str[k]; k++)
-				{
-					buffer[j] = str[k];
-					j++;
-				}
-			}
+			printed_char += print_specifier(vl, format[i]);
 		}
 		else
 		{
-			buffer[j] = format[i];
-			j++;
+			_putchar(format[i]);
+			printed_char++;
 		}
 		i++;
 	}
-	write(1, buffer, j);
 	va_end(vl);
-	return (j);
+	return (printed_char);
+}
+/**
+  * print_specifier - function the prints the specifier
+  * @list: input va_list
+  * @specifier: input specifier
+  * Return: number of characters printed
+  */
+int print_specifier(va_list list, char specifier)
+{
+	int printed_char = 0, i = 0;
+	char *str;
+
+	switch (specifier)
+	{
+		case 'c':
+			{
+				_putchar(va_arg(list, int));
+				printed_char++;
+				break;
+			}
+		case '%':
+			{
+				_putchar('%');
+				printed_char++;
+				break;
+			}
+		case 's':
+			{
+				str = va_arg(list, char*);
+				for (i = 0; str[i]; i++)
+				{
+					_putchar(str[i]);
+					printed_char++;
+				}
+			}
+	}
+	return (printed_char);
 }
